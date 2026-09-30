@@ -641,6 +641,12 @@ pub fn parse_env(content: &str) -> Result<BTreeMap<String, String>, TaprootError
                 idx + 1
             )));
         }
+        if map.contains_key(k) {
+            return Err(TaprootError::Mount(format!(
+                "malformed env line {}: duplicate key {k}",
+                idx + 1
+            )));
+        }
         map.insert(k.to_string(), v.to_string());
     }
     Ok(map)
@@ -880,6 +886,12 @@ mod tests {
         // value may contain '='
         let m = parse_env("URL=http://x?a=b\n").unwrap();
         assert_eq!(m.get("URL").unwrap(), "http://x?a=b");
+    }
+
+    #[test]
+    fn parse_env_rejects_duplicate_keys_after_trimming() {
+        let error = parse_env("FOO=first\n FOO =second\n").unwrap_err();
+        assert!(error.to_string().contains("line 2: duplicate key FOO"));
     }
 
     #[test]
