@@ -4,7 +4,7 @@ Thanks for your interest in contributing to Taproot.
 
 ## Development setup
 
-Install the stable Rust toolchain. On Ubuntu or another Debian-based Linux distribution, install the FUSE development headers and `pkg-config` used by the CI workflow:
+If you do not have Rust installed yet, follow [rustup's installation instructions](https://rustup.rs/) to install the stable toolchain. On Ubuntu or another Debian-based Linux distribution, install the FUSE development headers and `pkg-config` used by the CI workflow:
 
 ```bash
 sudo apt-get update
